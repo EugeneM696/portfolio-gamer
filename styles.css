@@ -23,9 +23,9 @@ background-color: var(--color-bg);
 color: var(--color-text);
 }
 main {
-max-width: 960px;
+max-width: 1100px;
 margin: 0 auto;
-padding: var(--spacing-lg);
+padding: var(--spacing-md);
 }
 section {
 margin-bottom: var(--spacing-lg);
@@ -55,12 +55,19 @@ header {
 background-color: var(--color-primary);
 color: white;
 padding: var(--spacing-md) var(--spacing-lg);
-text-align: center;
+/*text-align: center;*/
+display: flex;
+flex-direction: column;
+gap: var(--spacing-sm);
+}
+nav {
+display: flex;
+flex-direction: column;
+gap: var(--spacing-sm);
 }
 nav a {
 color: var(--color-accent);
 text-decoration: none;
-margin-right: var(--spacing-md);
 font-weight: bold;
 transition: color 0.2s ease;
 }
@@ -102,7 +109,7 @@ font-weight: bold;
 input, select, textarea {
 display: block;
 width: 100%;
-max-width: 400px;
+max-width: 100%;
 padding: var(--spacing-sm);
 margin-bottom: var(--spacing-md);
 border: 1px solid var(--color-muted);
@@ -130,15 +137,47 @@ transition: opacity 0.2s ease;
 button:hover {
 opacity: 0.85;
 }
-/* 7. Картки проєктів */
+.projects-list {
+display: flex;
+flex-wrap: wrap;
+gap: var(--spacing-md);
+}
 #projects article {
-background-color: var(--color-bg);
-border: 1px solid #e0e0e0;
-border-radius: 8px;
+flex: 1 1 250px;
+background-color: white;
+border: 1px solid var(--color-border);
+border-radius: var(--radius);
 padding: var(--spacing-md);
-margin-bottom: var(--spacing-md);
 transition: box-shadow 0.2s ease;
 }
 #projects article:hover {
 box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.form-row {
+display: flex;
+flex-direction: column;
+gap: var(--spacing-md);
+margin-bottom: var(--spacing-md);
+}
+.form-row input {
+margin-bottom: 0;
+}
+/* Медіазапит для планшетів і десктопів (підставте брейкпоінт
+вашого варіанта!) */
+@media (min-width: 900px) {
+header {
+flex-direction: row;
+justify-content: space-between;
+align-items: center;
+}
+nav {
+flex-direction: row;
+gap: var(--spacing-md);
+}
+.form-row {
+flex-direction: row;
+}
+.form-row > div {
+flex: 1;
+}
 }

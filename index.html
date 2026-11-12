@@ -12,7 +12,7 @@ scale=1.0">
 <body>
     <header>
 <h1>Якщо ви любите відеоігри, вам сюди!</h1>
-<img src="photo.jpg" alt="Фото комп'ютерної переферії" width="600">
+<img src="photo.jpg" alt="Фото комп'ютерної переферії" width="450">
 <nav>
 <a href="#about">Про мене</a>
 <a href="#projects">Проєкти</a>
@@ -34,27 +34,47 @@ scale=1.0">
 </section>
 <section id="projects">
 <h2>Проєкти</h2>
+<div class="projects-list">
 <article>
-<h3>Статті блогу</h3>
-<p>Усі статті мого блогу де ви знайдете мої думки про ігри.</p>
+<h3>Valheim</h3>
+<p>Ідеальний survival для компанії друзів</p>
 </article>
 <article>
-<h3>Галерея</h3>
-<p>Цікаві скріншоти з зіграних мною ігор.</p>
+<h3>Hollow knight:Silksong</h3>
+<p>Продовження моєї улюбленої гри</p>
 </article>
 <article>
-<h3>Відеомоменти</h3>
-<p>Невеликі відео з різними моментами мого геймплею.</p>
+<h3>Dying light</h3>
+<p>Зомбі та паркур!</p>
 </article>
+<article>
+<h3>Elden ring</h3>
+<p>Найгарніший соулслайк</p>
+</article>
+<article>
+<h3>Hollow knight</h3>
+<p>Гра яка змінила моє життя</p>
+</article>
+<article>
+<h3>Baldur's gate 3</h3>
+<p>Днд але цікавіше</p>
+</article>
+</div>
 </section>
 <section id="contact">
 <h2>Контакти</h2>
 <form action="#" method="post">
-<label for="name">Ім’я *</label><br>
+<div class="form-row">
+<div>
+<label for="name">Ім’я *</label>
 <input type="text" id="name" name="name"
-required minlength="2" maxlength="50"><br><br>
-<label for="email">Електронна пошта *</label><br>
-<input type="email" id="email" name="email" required><br><br>
+required minlength="2" maxlength="50">
+</div>
+<div>
+<label for="email">Електронна пошта *</label>
+<input type="email" id="email" name="email" required>
+</div>
+</div>
 <label for="topic">Тема звернення *</label><br>
 <select id="topic" name="topic" required>
 <option value="" disabled selected>Оберіть тему</option>
