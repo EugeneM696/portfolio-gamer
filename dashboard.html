@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Дашборд — Панель показників</title>
+<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="dashboard.css">
+</head>
+<body>
+<div class="layout">
+<header class="layout__header">
+<h1>Ігрова статистика, турніри та стріми</h1>
+</header>
+<aside class="layout__sidebar">
+<nav aria-label="Розділи дашборду">
+<ul>
+<li><a href="#">Огляд</a></li>
+<li><a href="#">Звіти</a></li>
+<li><a href="#">Налаштування</a></li>
+<li><a href="index.html">← До портфоліо</a></li>
+</ul>
+</nav>
+</aside>
+<main class="layout__main">
+<section class="cards" aria-label="Ключові показники">
+<article class="card card--wide">
+<h2>Години у грі та на стрімах (Пн–Нд)</h2>
+<div class="chart" role="img" aria-label="Стовпчикова
+діаграма показників за сім днів">
+<span style="--h: 20%" title="Понеділок: 20%"></span>
+<span style="--h: 35%" title="Вівторок: 35%"></span>
+<span style="--h: 48%" title="Середа: 48%"></span>
+<span style="--h: 60%" title="Четвер: 60%"></span>
+<span style="--h: 60%" title="П’ятниця: 60%"></span>
+<span style="--h: 85%" title="Субота: 85%"></span>
+<span style="--h: 87%" title="Неділя: 87%"></span>
+</div>
+</article>
+<article class="card">
+<h2>Вінрейт у рейтингових матчах</h2>
+<p class="card__value">55 %</p>
+</article>
+<article class="card">
+<h2>Зіграно турнірних матчів</h2>
+<p class="card__value">25</p>
+</article>
+<article class="card card--tall">
+<h2>Рейтинг стрімів та оглядів</h2>
+<p class="card__value">4,9 ★</p>
+<p class="card__note">Середня оцінка корисності гайдів та трансляцій за версією підписників за місяць</p>
+</article>
+<article class="card">
+<h2>Призових місць у турнірах</h2>
+<p class="card__value">8</p>
+</article>
+<article class="card">
+          <h2>Прямих трансляцій за місяць</h2>
+          <p class="card__value">22</p>
+        </article>
+        <article class="card">
+          <h2>Середнє утримання глядачів</h2>
+          <p class="card__value">76 %</p>
+        </article>
+        <article class="card">
+          <h2>K/D/A</h2>
+          <p class="card__value">2.8</p>
+        </article>
+      </section>
+</main>
+<footer class="layout__footer">
+<p>© 2026 Мельник Євгеній · КІ 24-1 · Лабораторна робота №5</p>
+</footer>
+</div>
+</body>
+</html>
