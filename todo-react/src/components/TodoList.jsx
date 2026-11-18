@@ -1,8 +1,10 @@
-import TodoItem from "./TodoItem.jsx";
+import TodoItem from './TodoItem';
 
 function TodoList({ todos, onToggle, onDelete }) {
   if (todos.length === 0) {
-    return <p className="empty">Завдань немає</p>;
+    return (
+      <p className="empty">Завдань, що відповідають умовам, не знайдено.</p>
+    );
   }
 
   return (
