@@ -170,3 +170,44 @@ npm run dev
 * `bob@example.com` (роль `user`)
 
 **Команди:** `npm install`, `npm run seed`, `npm run dev`, `npm run check`.
+
+# Ігрові квести — Portfolio Gamer (Фінальний fullstack-проєкт)
+
+Fullstack-вебзастосунок для керування списком ігрових квестів: клієнтська частина на React 19 (Vite), REST API на Node.js + Express 5, хмарна база даних MongoDB Atlas (Mongoose 9), автентифікація та авторизація за JWT.
+
+* **Працюючий клієнтський застосунок (Netlify):** https://portfolio-gamer.netlify.app/
+* **Сервер REST API (Render):** https://portfolio-gamer-api.onrender.com (перевірка стану: https://portfolio-gamer-api.onrender.com/health)
+
+> **Примітка:** сервер працює на безкоштовному тарифному плані Render, тому перший запит після 15 хвилин простою може тривати до 40–60 секунд (*cold start*).
+
+## Використані технології
+React 19 · Vite · Node.js · Express 5 · Mongoose 9 · MongoDB Atlas · JWT · bcrypt · CORS
+
+## Архітектура розгорнутого застосунку
+Браузер користувача → Netlify (статичний React SPA з CDN) → Render (Node.js + Express REST API) → MongoDB Atlas (хмарна БД `lr15`)
+
+## Запуск проєкту локально
+1. **Серверна частина:** перейдіть у папку `cd lr11-server`, виконайте `npm install`, створіть файл `.env` за зразком `.env.example`, заповніть базу початковими даними `npm run seed` та запустіть сервер `npm run dev` (порт `3012`).
+2. **Клієнтська частина:** у новому терміналі перейдіть у папку `cd client`, виконайте `npm install` та запустіть клієнт `npm run dev` (відкриється `http://localhost:5173`).
+
+## Змінні середовища
+
+| Змінна | Де зберігається | Призначення |
+| :--- | :--- | :--- |
+| `MONGODB_URI` | Сервер (Render) | Рядок підключення до кластера MongoDB Atlas (секрет) |
+| `JWT_SECRET` | Сервер (Render) | Ключ підпису JWT-токенів довжиною не менше 32 символів (секрет) |
+| `CLIENT_ORIGIN` | Сервер (Render) | Дозволений origin клієнтського застосунку на Netlify для CORS |
+| `NODE_ENV` | Сервер (Render) | Режим середовища (`production`) |
+| `VITE_API_URL` | Клієнт (Netlify) | Публічна адреса сервера АРІ на Render (вшивається у клієнт під час збірки) |
+
+## Документація REST API
+Базова адреса колекції: `/api/quests` (порт `3012`, TTL токена: `3600` с). Детальний опис маршрутів та правил доступу наведено у розділах ЛР № 13–14 вище.
+
+## Демонстраційні облікові записи (`npm run seed`)
+Пароль для всіх тестових акаунтів: `Password!`
+* Звичайний користувач: `alice@example.com` (роль `user`)
+* Звичайний користувач: `bob@example.com` (роль `user`)
+* Адміністратор: `admin@example.com` (роль `admin`)
+
+## Автор
+Мельник Є. В., варіант № 12 (`portfolio-gamer`).
