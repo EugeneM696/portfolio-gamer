@@ -101,3 +101,16 @@ App
 cd lr11-server
 npm install
 npm run dev
+
+## Лабораторна робота № 12: Інтеграція бази даних MongoDB
+
+**Директорія проєкту:** `lr11-server/`
+**Варіант №:** 12 (`portfolio-gamer`, порт `3012`)
+**Модель та колекція:** `Quest` → `quests` (маршрут `/api/quests`)
+
+### Схема та правила валідації (`models/Quest.js`)
+
+* `title` — `String` (обов'язкове, `trim`, довжина від `2` до `100` символів)
+* `priority` — `String` (обов'язкове, `trim`, допустимі значення: `'low'`, `'medium'`, `'high'`)
+* `done` — `Boolean` (необов'язкове, значення за замовчуванням: `false`)
+* Автоматичні часові мітки (`timestamps: true`: `createdAt`, `updatedAt`) та заміна `_id` на `id` у JSON-відповідях.
