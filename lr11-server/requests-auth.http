@@ -1,0 +1,73 @@
+@host = http://localhost:3012
+@token = {{login.response.body.$.token}}
+
+### 1. Реєстрація нового користувача (201 Created, без passwordHash)
+POST {{host}}/api/auth/register
+Content-Type: application/json
+
+{
+  "name": "Геймер Тест",
+  "email": "gamer@example.com",
+  "password": "Password!"
+}
+
+### 2. Вхід як Аліса (200 OK + токен)
+# @name login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "Password!"
+}
+
+### 3. Вхід із хибним паролем (401 Unauthorized)
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "alice@example.com",
+  "password": "WrongPassword123"
+}
+
+### 4. Профіль поточного користувача (200 OK)
+GET {{host}}/api/auth/me
+Authorization: Bearer {{token}}
+
+### 5. Мої квести (200 OK)
+GET {{host}}/api/quests/mine
+Authorization: Bearer {{token}}
+
+### 6. Створення квесту з токеном (201 Created)
+POST {{host}}/api/quests
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Пройти Hollow Knight: Silksong",
+  "priority": "high",
+  "done": false
+}
+
+### 7. Створення квесту без токена (401 Unauthorized + WWW-Authenticate)
+POST {{host}}/api/quests
+Content-Type: application/json
+
+{
+  "title": "Анонімний квест",
+  "priority": "low"
+}
+
+### 8. Зміна пароля — Додаткове правило Типу 4 (200 OK)
+POST {{host}}/api/auth/change-password
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "currentPassword": "Password!",
+  "newPassword": "NewPassword2026!"
+}
+
+### 9. Список користувачів (лише для admin@example.com -> 200 OK, для user -> 403 Forbidden)
+GET {{host}}/api/auth/users
+Authorization: Bearer {{token}}

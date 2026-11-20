@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import mongoose from 'mongoose';
 import Quest from '../models/Quest.js';
+import { requireAuth } from '../middleware/auth.js';
 
 const router = Router();
 
@@ -28,9 +29,18 @@ async function findQuest(req, res, next) {
   next();
 }
 
-const withQuest = [validateId, findQuest];
+function requireOwnerOrAdmin(req, res, next) {
+  const isOwner = req.quest.owner?.equals(req.user._id);
+  if (!isOwner && req.user.role !== 'admin') {
+    return res.status(403).json({ error: 'Змінювати запис може лише його власник або адміністратор' });
+  }
+  next();
+}
 
-// GET /api/quests — список: пошук ?q=, фільтр ?priority= і ?done=, сортування ?sort=, пагінація ?page=&limit=
+const withQuest = [validateId, findQuest];
+const ownQuest = [requireAuth, validateId, findQuest, requireOwnerOrAdmin];
+
+// GET /api/quests — публічний список
 router.get('/', async (req, res) => {
   const { q, priority, done, sort = '-createdAt' } = req.query;
   const page = Math.max(Number.parseInt(req.query.page) || 1, 1);
@@ -59,19 +69,25 @@ router.get('/', async (req, res) => {
   res.json(items);
 });
 
-// GET /api/quests/:id — отримання одного квесту
+// GET /api/quests/mine — приватний маршрут: лише квести поточного користувача (обов'язково ПЕРЕД '/:id')
+router.get('/mine', requireAuth, async (req, res) => {
+  const quests = await Quest.find({ owner: req.user._id }).sort({ createdAt: -1 });
+  res.json(quests);
+});
+
+// GET /api/quests/:id — публічний перегляд одного запису
 router.get('/:id', withQuest, (req, res) => {
   res.json(req.quest);
 });
 
-// POST /api/quests — створення нового квесту
-router.post('/', async (req, res) => {
-  const quest = await Quest.create(pick(req.body));
+// POST /api/quests — створення (власник береться з токена)
+router.post('/', requireAuth, async (req, res) => {
+  const quest = await Quest.create({ ...pick(req.body), owner: req.user._id });
   res.status(201).location(`${req.baseUrl}/${quest.id}`).json(quest);
 });
 
 // PUT /api/quests/:id — повна заміна
-router.put('/:id', withQuest, async (req, res) => {
+router.put('/:id', ownQuest, async (req, res) => {
   const data = pick(req.body);
   req.quest.set(Object.fromEntries(FIELDS.map((f) => [f, data[f]])));
   await req.quest.save();
@@ -79,7 +95,7 @@ router.put('/:id', withQuest, async (req, res) => {
 });
 
 // PATCH /api/quests/:id — часткове оновлення
-router.patch('/:id', withQuest, async (req, res) => {
+router.patch('/:id', ownQuest, async (req, res) => {
   const data = pick(req.body);
   if (Object.keys(data).length === 0) {
     return res.status(400).json({ error: `Передайте хоча б одне з полів: ${FIELDS.join(', ')}` });
@@ -90,7 +106,7 @@ router.patch('/:id', withQuest, async (req, res) => {
 });
 
 // DELETE /api/quests/:id — видалення
-router.delete('/:id', withQuest, async (req, res) => {
+router.delete('/:id', ownQuest, async (req, res) => {
   await req.quest.deleteOne();
   res.status(204).end();
 });

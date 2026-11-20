@@ -23,6 +23,12 @@ const questSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
+    owner: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'User',
+      required: [true, 'У запису має бути власник'],
+      index: true,
+    },
   },
   {
     timestamps: true,

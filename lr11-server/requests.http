@@ -1,5 +1,5 @@
 @host = http://localhost:3012
-@id = ВСТАВТЕ_ID_ІЗ_ВІДПОВІДІ_POST
+@id = 6b00aa2767395bce77a4c870
 
 ### 1. Список квестів (із пагінацією та сортуванням)
 GET {{host}}/api/quests?limit=5&sort=-createdAt
