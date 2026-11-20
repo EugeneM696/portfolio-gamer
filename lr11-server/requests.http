@@ -1,0 +1,48 @@
+@host = http://localhost:3012
+@id = ВСТАВТЕ_ID_ІЗ_ВІДПОВІДІ_POST
+
+### 1. Список квестів (із пагінацією та сортуванням)
+GET {{host}}/api/quests?limit=5&sort=-createdAt
+
+### 2. Створення нового квесту (POST -> 201 Created + Location, при повторі -> 409 Conflict)
+POST {{host}}/api/quests
+Content-Type: application/json
+
+{
+  "title": "Пройти Baldur's Gate 3 на доблесті",
+  "priority": "high",
+  "done": false
+}
+
+### 3. Отримання одного квесту за id (GET -> 200 OK)
+GET {{host}}/api/quests/{{id}}
+
+### 4. Повна заміна квесту (PUT -> 200 OK)
+PUT {{host}}/api/quests/{{id}}
+Content-Type: application/json
+
+{
+  "title": "Пройти Baldur's Gate 3 у кооперативі",
+  "priority": "medium",
+  "done": false
+}
+
+### 5. Часткове оновлення квесту (PATCH -> 200 OK)
+PATCH {{host}}/api/quests/{{id}}
+Content-Type: application/json
+
+{
+  "done": true
+}
+
+### 6. Видалення квесту (DELETE -> 204 No Content, при повторі -> 404 Not Found)
+DELETE {{host}}/api/quests/{{id}}
+
+### 7. Перевірка помилки валідації (400 Bad Request)
+POST {{host}}/api/quests
+Content-Type: application/json
+
+{
+  "title": "",
+  "priority": "urgent"
+}
